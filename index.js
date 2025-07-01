@@ -17,34 +17,7 @@ app.use(express.static('public'));
 app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
 
-app.get('/api/:date?', (req, res) => {
-  const dateStr = req.params.date;
-  let date;
-  if (!dateStr) {
-    date = new Date();
-  } else if (!isNaN(dateStr)) {
-    date = new Date(parseInt(dateStr));
-  } else {
-    date = new Date(dateStr);
-  }
-
-  if (date.toString() === 'Invalid Date') {
-    return res.json({ error: 'Invalid Date' });
-  }
-
-  const unix = Math.floor(date.getTime() / 1000);
-  const utc = date.toUTCString();
-
-  res.json({ unix, utc });
-});
-
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
 
 // your first API endpoint... 
 app.get("/api/hello", function (req, res) {
